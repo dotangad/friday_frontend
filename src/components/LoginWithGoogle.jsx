@@ -8,9 +8,8 @@ function LoginWithGoogle() {
     persistOauthState(oauthState);
 
     const params = {
-      client_id:
-        "424374045946-aju7auoehrj90l8rfiugl969bcodui97.apps.googleusercontent.com",
-      redirect_uri: "http://localhost:5173/auth/google/cb",
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
       response_type: "token",
       scope:
         "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",

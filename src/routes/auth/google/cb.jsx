@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { compareOauthState } from "../../../lib/auth";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { AuthContext } from "../../../lib/authcontext";
 
 export const Route = createFileRoute("/auth/google/cb")({
   component: GoogleCB,
@@ -7,13 +9,14 @@ export const Route = createFileRoute("/auth/google/cb")({
 
 function GoogleCB() {
   const url = new URLSearchParams(window.location.hash.substring(1));
-
-  if (!compareOauthState(url.get("state"))) {
-    return <div>Invalid login, try again</div>;
-  }
-
   const accessToken = url.get("access_token");
+  const { authenticateWithGoogleToken, loading, token, user } =
+    useContext(AuthContext);
 
-  return <div>{accessToken}</div>;
+  useEffect(() => {
+    authenticateWithGoogleToken(accessToken);
+    console.log("hello");
+  }, [accessToken]);
+
+  return <div>{JSON.stringify({ loading, token, user })}</div>;
 }
-
