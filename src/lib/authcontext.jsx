@@ -5,7 +5,6 @@ export const AuthContext = createContext({
   loading: true,
   token: false,
   user: false,
-  refreshToken: async () => false,
   authenticateWithGoogleToken: async () => false,
   logout: async () => false,
 });
@@ -21,7 +20,7 @@ export default function AuthWrapper({ children }) {
   // --> save valid user object to context
 
   useEffect(() => {
-    const lsToken = window.localStorage.getItem("friday__apitoken");
+    const lsToken = window.localStorage.getItem("parcha__apitoken");
     if (!lsToken) {
       // TODO: invalidate react query cachce
       setLoading(false);
@@ -56,35 +55,29 @@ export default function AuthWrapper({ children }) {
     return;
   }, []);
 
-  const refreshToken = async () => {};
-
   const authenticateWithGoogleToken = async (googleToken) => {
-    setLoading(true);
     const req = await fetch(`${import.meta.env.VITE_API_URL}/auth/google/`, {
       method: "POST",
       body: JSON.stringify({ access_token: googleToken }),
     });
 
     if (req.status !== 200) {
-      setLoading(false);
       console.log(req);
       // TODO: handle errors
       return;
     }
 
     const { user, token } = await req.json();
-    window.localStorage.setItem("friday__apitoken", token);
+    window.localStorage.setItem("parcha__apitoken", token);
     setUser(user);
     setToken(token);
-
-    setLoading(false);
     return;
   };
 
   const logout = async () => {
     setUser(false);
     setToken(false);
-    window.localStorage.removeItem("friday__apitoken");
+    window.localStorage.removeItem("parcha__apitoken");
   };
 
   return (
@@ -94,14 +87,13 @@ export default function AuthWrapper({ children }) {
         loading,
         token,
         user,
-        refreshToken,
         authenticateWithGoogleToken,
         logout,
       }}
     >
       {loading ? (
-        <Flex w="100vw" h="100vh" alignItems="center" justifyContent="center">
-          <Spinner size="xl"></Spinner>
+        <Flex justify="center" align="center" h="100vh">
+          <Spinner />
         </Flex>
       ) : (
         children
