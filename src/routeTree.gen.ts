@@ -18,6 +18,7 @@ import { Route as AuthGoogleCbImport } from './routes/auth/google/cb'
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
+const AuthIndexLazyImport = createFileRoute('/auth/')()
 
 // Create/Update Routes
 
@@ -25,6 +26,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const AuthIndexLazyRoute = AuthIndexLazyImport.update({
+  path: '/auth/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/auth/index.lazy').then((d) => d.Route))
 
 const AuthGoogleCbRoute = AuthGoogleCbImport.update({
   path: '/auth/google/cb',
@@ -42,6 +48,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/google/cb': {
       id: '/auth/google/cb'
       path: '/auth/google/cb'
@@ -56,6 +69,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  AuthIndexLazyRoute,
   AuthGoogleCbRoute,
 })
 

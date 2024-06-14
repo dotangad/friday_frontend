@@ -1,5 +1,6 @@
-import { useState, useEffect, createContext } from "react";
-import { Flex, Spinner } from "@chakra-ui/react";
+import { useState, useEffect, useContext, createContext } from "react";
+import { Flex, Spinner, Box } from "@chakra-ui/react";
+import LoginWithGoogle from "../components/LoginWithGoogle";
 
 export const AuthContext = createContext({
   loading: true,
@@ -58,6 +59,9 @@ export default function AuthWrapper({ children }) {
   const authenticateWithGoogleToken = async (googleToken) => {
     const req = await fetch(`${import.meta.env.VITE_API_URL}/auth/google/`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ access_token: googleToken }),
     });
 
@@ -78,6 +82,7 @@ export default function AuthWrapper({ children }) {
     setUser(false);
     setToken(false);
     window.localStorage.removeItem("parcha__apitoken");
+    window.location = "/";
   };
 
   return (
@@ -100,4 +105,10 @@ export default function AuthWrapper({ children }) {
       )}
     </AuthContext.Provider>
   );
+}
+
+export function EnsureAuthenticated({ children, unauthenticated }) {
+  const { token } = useContext(AuthContext);
+
+  return token ? children : unauthenticated;
 }
