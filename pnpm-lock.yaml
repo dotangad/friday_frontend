@@ -17,6 +17,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.11.5
         version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1)
+      '@tanstack/react-query':
+        specifier: ^5.45.0
+        version: 5.45.0(react@18.3.1)
       '@tanstack/react-router':
         specifier: ^1.32.16
         version: 1.32.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1036,6 +1039,14 @@ packages:
   '@tanstack/history@1.31.16':
     resolution: {integrity: sha512-rahAZXlR879P7dngDH7BZwGYiODA9D5Hqo6nUHn9GAURcqZU5IW0ZiT54dPtV5EPES7muZZmknReYueDHs7FFQ==}
     engines: {node: '>=12'}
+
+  '@tanstack/query-core@5.45.0':
+    resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}
+
+  '@tanstack/react-query@5.45.0':
+    resolution: {integrity: sha512-y272cKRJp1BvehrWG4ashOBuqBj1Qm2O6fgYJ9LYSHrLdsCXl74GbSVjUQTReUdHuRIl9cEOoyPa6HYag400lw==}
+    peerDependencies:
+      react: ^18.0.0
 
   '@tanstack/react-router@1.32.16':
     resolution: {integrity: sha512-rdbMFJ8pbXV1TJbyov/IQIPDhd6EJZDjD1xKzdLhgb4ZpkBF/52av+kTOx91fhdjmUVVDEY9sNM+D/kswsuLzQ==}
@@ -3392,6 +3403,13 @@ snapshots:
     optional: true
 
   '@tanstack/history@1.31.16': {}
+
+  '@tanstack/query-core@5.45.0': {}
+
+  '@tanstack/react-query@5.45.0(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.45.0
+      react: 18.3.1
 
   '@tanstack/react-router@1.32.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
