@@ -1,6 +1,5 @@
 export default function fetchDocuments(token, query) {
-  return async function() {
-    console.log("called")
+  return async function () {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/documents/query`, {
       headers: {
         Authorization: `Bearer ${token}`,
