@@ -3,19 +3,23 @@ import { useQuery } from "@tanstack/react-query";
 import { Flex, Box, Input, Button, Skeleton } from "@chakra-ui/react";
 import { AuthContext } from "../lib/authcontext";
 import fetchDocuments from "../lib/documents";
+import { ExtensionsContext } from "../lib/ext/engine";
 
 export default function QueryDocuments() {
   const { token } = useContext(AuthContext);
+  const { extensions } = useContext(ExtensionsContext)
+
   // FIXME: handle error
   const { data, isLoading } = useQuery({
     queryKey: ["documents.initial"],
     queryFn: fetchDocuments(token, {
-      limit: 50
+      limit: 50,
+      withTitles: true
     }),
   });
 
   return (
-    <Box>
+    <Box mt={8}>
       <Flex alignItems="center" gap={3}>
         <Input type="text" placeholder="Query here" bg="white" />
         <Button bg="purple.500" color="white" _hover={{ bg: "purple.700" }}>
@@ -23,14 +27,28 @@ export default function QueryDocuments() {
         </Button>
       </Flex>
       {isLoading ? (
-        <Flex flexDir="column" gap={2} my={6}>
+        <Flex flexDir="column" gap={2} my={8}>
           {Array(10).fill(0).map((_, i) => (
             <Skeleton key={i} height="45px" />
           ))}
         </Flex>
       ) : (
-        <Box my={6} overflow="auto">
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+        <Box my={8} overflow="auto">
+          <Flex flexDir="column" gap={4}>
+            {data.documents.map((doc) => {
+              const extension = extensions[doc.extension];
+
+              if (!extension) {
+                // FIXME: handle
+                return <></>
+              }
+
+
+              return <Box key={doc._id}>
+                <extension.DisplayRow document={doc} />
+              </Box>;
+            })}
+          </Flex>
         </Box>
       )}
     </Box>

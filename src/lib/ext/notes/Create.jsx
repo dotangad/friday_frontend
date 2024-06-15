@@ -48,7 +48,6 @@ export function Create() {
       tabIndex={0}
       onMouseDown={(e) => {
         e.preventDefault();
-        console.log("click")
         mutate({ title: "New Note", content: "" }); // call the mutation
       }}
       _hover={{ bg: "purple.100" }}

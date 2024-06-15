@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import z from "zod";
 import { Create } from "./Create";
+import { DisplayRow } from "./DisplayRow";
 
-export const icon = "/new-note.png";
+export const icon = "/notes-icon.png";
 export const name = "notes";
 export const identifier = "notes";
 export const description = "A simple note taking extension";
@@ -19,6 +21,6 @@ export default {
   }),
   hooks: {},
   EditPage: () => <></>, // TODO: render for view
-  DisplayRow: () => <></>, // TODO: render for view
-  Create, // TODO: render for view
+  DisplayRow,
+  Create,
 };
