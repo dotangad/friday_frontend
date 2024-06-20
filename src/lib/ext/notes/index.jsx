@@ -2,6 +2,7 @@
 import z from "zod";
 import { Create } from "./Create";
 import { DisplayRow } from "./DisplayRow";
+import { EditPage } from "./EditPage";
 
 export const icon = "/notes-icon.png";
 export const name = "notes";
@@ -20,7 +21,7 @@ export default {
     content: z.string(),
   }),
   hooks: {},
-  EditPage: () => <></>, // TODO: render for view
+  EditPage,
   DisplayRow,
   Create,
 };

@@ -11,7 +11,9 @@ export default function Header() {
     <Flex justifyContent="space-between" alignItems="center" pt={8} w="100%" mx="auto">
       <Flex justifyContent="center" alignItems="center" gap={4}>
         {/* <Image src="/logo256-2.png" h={8} w={8} /> */}
-        <Text fontSize="2xl" fontWeight="bold" fontFamily="yatra"><Text color="pPurple.dark" as="span">प</Text>archa</Text>
+        <Link to="/">
+          <Text fontSize="2xl" fontWeight="bold" fontFamily="yatra"><Text color="pPurple.dark" as="span">प</Text>archa</Text>
+        </Link>
       </Flex>
       <Flex alignItems="center" justifyContent="center">
         {token ? (

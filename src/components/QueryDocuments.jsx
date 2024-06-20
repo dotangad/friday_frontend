@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Flex, Box, Input, Button, Skeleton } from "@chakra-ui/react";
 import { AuthContext } from "../lib/authcontext";
-import fetchDocuments from "../lib/documents";
+import { queryDocuments } from "../lib/documents";
 import { ExtensionsContext } from "../lib/ext/engine";
 
 export default function QueryDocuments() {
@@ -12,7 +12,7 @@ export default function QueryDocuments() {
   // FIXME: handle error
   const { data, isLoading } = useQuery({
     queryKey: ["documents.initial"],
-    queryFn: fetchDocuments(token, {
+    queryFn: queryDocuments(token, {
       limit: 50,
       withTitles: true
     }),
