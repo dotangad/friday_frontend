@@ -19,9 +19,6 @@ export function DisplayRow({ document }) {
       gap={3}
       role="button"
       tabIndex={0}
-      onClick={() => {
-        console.log("click")
-      }}
       _hover={{
         bg: "white",
         shadow: "md"

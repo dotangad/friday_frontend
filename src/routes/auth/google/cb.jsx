@@ -10,10 +10,9 @@ export const Route = createFileRoute("/auth/google/cb")({
 function GoogleCB() {
   const url = new URLSearchParams(window.location.hash.substring(1));
   const accessToken = url.get("access_token");
-  const { authenticateWithGoogleToken, token, user } = useContext(AuthContext);
+  const { authenticateWithGoogleToken } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("hello");
     // TODO: we might have to move this logic out of the context to handle errors
     authenticateWithGoogleToken(accessToken).then(() => {
       window.location = "/";

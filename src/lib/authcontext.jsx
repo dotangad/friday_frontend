@@ -31,7 +31,7 @@ export default function AuthWrapper({ children }) {
     }
 
     (async function () {
-      console.log(lsToken);
+      // console.log(lsToken);
       const meReq = await fetch(`${import.meta.env.VITE_API_URL}/auth/me/`, {
         method: "POST",
         headers: new Headers({

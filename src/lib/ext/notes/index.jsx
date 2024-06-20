@@ -18,7 +18,7 @@ export default {
   version,
   contentSchema: z.object({
     title: z.string(),
-    content: z.string(),
+    content: z.unknown(),
   }),
   hooks: {},
   EditPage,
